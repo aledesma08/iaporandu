@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contenido</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Light and dark mode */
+        body.light-mode {
+            background-color: #f0f3f7;
+            color: #333333;
+        }
+
+        body.dark-mode {
+            background-color: #1c1c1c;
+            color: #ffffff;
+        }
+
+        /* Body styling for centering */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s;
+        }
+
+        /* Container styling */
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Light and dark mode for container */
+        .dark-mode .container {
+            background-color: #333333;
+        }
+
+        /* Title */
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Button styling */
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #00aaff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: #008ecc;
+        }
+
+        /* Mode toggle button */
+        .mode-toggle {
+            margin-bottom: 1rem;
+            background-color: #888888;
+        }
+
+        /* Dark mode adjustments for buttons */
+        .dark-mode button {
+            background-color: #555555;
+        }
+
+        .dark-mode button:hover {
+            background-color: #777777;
+        }
+
+        /* Question styling */
+        .question {
+            margin: 1rem 0;
+        }
+
+        /* Label styling */
+        label {
+            display: block;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* Radio button styling */
+        input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #00aaff;
+            width: 18px;
+            height: 18px;
+        }
+
+    </style>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <button type="button" class="mode-toggle" onclick="toggleMode()">Modo Nocturno</button>
+        
+        <!-- Primera pregunta -->
+        <div id="question1">
+            <h1>¿Qué desea generar?</h1>
+            <div class="question">
+                <label>
+                    <input type="radio" name="option1" value="Plan de Estudio">
+                    Plan de Estudio
+                </label>
+                <label>
+                    <input type="radio" name="option1" value="Examen">
+                    Examen
+                </label>
+                <label>
+                    <input type="radio" name="option1" value="Tarea">
+                    Tarea
+                </label>
+            </div>
+            <button onclick="showSecondQuestion()">Continuar</button>
+        </div>
+        
+        <!-- Segunda pregunta -->
+        <div id="question2" style="display: none;">
+            <h1>¿De qué materia?</h1>
+            <div class="question">
+                <label>
+                    <input type="radio" name="option2" value="Matemática Aplicada">
+                    Matemática Aplicada
+                </label>
+                <label>
+                    <input type="radio" name="option2" value="Python">
+                    Python
+                </label>
+                <label>
+                    <input type="radio" name="option2" value="Física">
+                    Física
+                </label>
+            </div>
+            <button onclick="showResult()">Generar</button>
+        </div>
+        
+        <!-- Resultado -->
+        <p id="resultado" style="margin-top: 1rem;"></p>
+    </div>
+
+    <script>
+        // Cambia entre modo claro y oscuro
+        function toggleMode() {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+            body.classList.toggle("light-mode");
+
+            // Actualiza el texto del botón
+            const modeToggleButton = document.querySelector(".mode-toggle");
+            if (body.classList.contains("dark-mode")) {
+                modeToggleButton.innerText = "Modo Día";
+            } else {
+                modeToggleButton.innerText = "Modo Nocturno";
+            }
+        }
+
+        // Muestra la segunda pregunta
+        function showSecondQuestion() {
+            const optionSelected = document.querySelector('input[name="option1"]:checked');
+            if (optionSelected) {
+                document.getElementById("question1").style.display = "none";
+                document.getElementById("question2").style.display = "block";
+            } else {
+                alert("Por favor, selecciona una opción.");
+            }
+        }
+
+        // Muestra el resultado final o redirige a PDMA.html
+        function showResult() {
+            const option1 = document.querySelector('input[name="option1"]:checked').value;
+            const option2 = document.querySelector('input[name="option2"]:checked');
+            
+            if (option2) {
+                if (option1 === "Plan de Estudio" && option2.value === "Matemática Aplicada") {
+                    // Redirigir a PDMA.html
+                    window.location.href = "PDMA.html";
+                } else {
+                    // Muestra el resultado en la misma página
+                    document.getElementById("resultado").innerText = 
+                        `Has seleccionado generar un(a) ${option1} de ${option2.value}.`;
+                    document.getElementById("question2").style.display = "none";
+                }
+            } else {
+                alert("Por favor, selecciona una materia.");
+            }
+        }
+    </script>
+</body>
+</html>
