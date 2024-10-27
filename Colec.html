@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz Simplificada IA-Porandu</title>
+    <link rel="stylesheet" href="Dis.css">
+</head>
+<body>
+    <div class="header">
+        <button id="toggleSidebar" class="menu-btn">
+            &#9776; <!-- Icono de tres líneas horizontales -->
+        </button>
+        <div class="title-logo">
+            <img src="logo.png" alt="Logo IA-Porandu" class="logo">
+            <h1 class="title">IA-Porandu</h1>
+            <span class="class-selection"> > Clases</span> <!-- Texto añadido aquí -->
+        </div>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li>
+                <label class="switch">
+                    <input type="checkbox" id="modeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span>Modo Noche/Día</span>
+            </li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="course-card">
+            <p>1ro B.T.I</p>
+        </div>
+        <div class="course-card">
+            <p>2do B.T.I</p>
+        </div>
+        <div class="course-card">
+            <p>3ro B.T.I</p>
+        </div>
+    </div>
+
+    <script>
+        // Modo noche/día
+        const toggle = document.getElementById('modeToggle');
+        toggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode', toggle.checked);
+        });
+
+        // Mostrar/ocultar barra lateral
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.toggle('visible');
+            document.body.classList.toggle('sidebar-visible', sidebar.classList.contains('visible'));
+        });
+    </script>
+</body>
+</html>
